@@ -5,16 +5,38 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfinding", "Pathfinding\Pathfinding.csproj", "{07E12AA4-8587-4B85-89BF-D621B2725DEF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lillheaton.Monogame.AStar", "Lillheaton.Monogame.AStar\Lillheaton.Monogame.AStar.csproj", "{1580561D-D757-44E5-B834-114A2F806010}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07E12AA4-8587-4B85-89BF-D621B2725DEF}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{07E12AA4-8587-4B85-89BF-D621B2725DEF}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{07E12AA4-8587-4B85-89BF-D621B2725DEF}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{07E12AA4-8587-4B85-89BF-D621B2725DEF}.Debug|x86.ActiveCfg = Debug|x86
 		{07E12AA4-8587-4B85-89BF-D621B2725DEF}.Debug|x86.Build.0 = Debug|x86
+		{07E12AA4-8587-4B85-89BF-D621B2725DEF}.Release|Any CPU.ActiveCfg = Release|x86
+		{07E12AA4-8587-4B85-89BF-D621B2725DEF}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{07E12AA4-8587-4B85-89BF-D621B2725DEF}.Release|Mixed Platforms.Build.0 = Release|x86
 		{07E12AA4-8587-4B85-89BF-D621B2725DEF}.Release|x86.ActiveCfg = Release|x86
 		{07E12AA4-8587-4B85-89BF-D621B2725DEF}.Release|x86.Build.0 = Release|x86
+		{1580561D-D757-44E5-B834-114A2F806010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1580561D-D757-44E5-B834-114A2F806010}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1580561D-D757-44E5-B834-114A2F806010}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1580561D-D757-44E5-B834-114A2F806010}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1580561D-D757-44E5-B834-114A2F806010}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1580561D-D757-44E5-B834-114A2F806010}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1580561D-D757-44E5-B834-114A2F806010}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1580561D-D757-44E5-B834-114A2F806010}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1580561D-D757-44E5-B834-114A2F806010}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{1580561D-D757-44E5-B834-114A2F806010}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
