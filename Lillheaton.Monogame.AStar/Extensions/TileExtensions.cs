@@ -62,13 +62,13 @@ namespace Lillheaton.Monogame.Pathfinding.Extensions
             // South-West
             if (that.Position.Y + 1 < yLength && that.Position.X - 1 > 0)
             {
-                yield return map[(int)(that.Position.X - 1)][(int)that.Position.Y - 1];
+                yield return map[(int)(that.Position.X - 1)][(int)that.Position.Y + 1];
             }
 
             // South-East
             if (that.Position.Y + 1 < yLength && that.Position.X + 1 < xLength)
             {
-                yield return map[(int)(that.Position.X - 1)][(int)that.Position.Y + 1];
+                yield return map[(int)(that.Position.X + 1)][(int)that.Position.Y + 1];
             }
         }
     }

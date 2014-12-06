@@ -15,6 +15,7 @@ namespace Pathfinding
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        GameManager gameManager;
 
         public Game1()
             : base()
@@ -25,8 +26,7 @@ namespace Pathfinding
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            gameManager = new GameManager(GraphicsDevice);
             base.Initialize();
         }
 
@@ -57,8 +57,11 @@ namespace Pathfinding
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
 
+            gameManager.Draw(spriteBatch);
+
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }

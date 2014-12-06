@@ -12,12 +12,11 @@ namespace Lillheaton.Monogame.Pathfinding
         {
             var closedSet = new List<INode>();
             var openSet = new List<INode>();
-            int tileSize = start.Size;
 
             // Open set should contain the start
             openSet.Add(new Node { Tile = start, G = 0, F = 0, H = 0 });
 
-            while (!openSet.Any())
+            while (openSet.Any())
             {
                 // Get the node with lowest F value
                 var current = openSet.First(s => s.F == openSet.Min(n => n.F));
@@ -41,9 +40,8 @@ namespace Lillheaton.Monogame.Pathfinding
 
                     // If diagonal g value is 14 otherwise 10
                     int g = current.Tile.IsDiagonalTo(neighbor) ? 14 : 10;
-                    float h = ManhattanHeuristic(current.Tile, neighbor);
+                    float h = DiagonalHeuristic(neighbor, goal);
                     float f = h + g;
-                    //float h = Vector3.Distance(current.Tile.Position * (tileSize / 2), neighbor.Position * (tileSize / 2));
 
                     var node = openSet.FirstOrDefault(n => n.Tile == neighbor);
                     if (node == null)
@@ -76,12 +74,15 @@ namespace Lillheaton.Monogame.Pathfinding
             }
         }
 
-        public static float ManhattanHeuristic(ITile start, ITile goal)
+        public static float DiagonalHeuristic(ITile from, ITile to)
         {
-            var xd = start.Position.X - goal.Position.X;
-            var yd = start.Position.X - goal.Position.Y;
-
-            return Math.Abs(xd) + Math.Abs(yd);
+            var xDistance = Math.Abs(from.Position.X - to.Position.X);
+            var yDistance = Math.Abs(from.Position.Y - to.Position.Y);
+            if (xDistance > yDistance)
+            {
+                return (14 * yDistance) + (10 * (xDistance - yDistance));
+            }
+            return (14 * yDistance) + (10 * (yDistance - xDistance));
         }
     }
 }

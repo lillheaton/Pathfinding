@@ -5,7 +5,7 @@ namespace Lillheaton.Monogame.Pathfinding
 {
     public interface ITile
     {
-        Vector3 Position { get; set; }
+        Vector3 Position { get; }
         int Size { get; }
     }
 }
