@@ -1,9 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Linq;
 
-namespace CSharp_Steering_Behavior
+namespace Pathfinding
 {
     public class PrimitiveBatch
     {
@@ -16,89 +15,89 @@ namespace CSharp_Steering_Behavior
 
         public PrimitiveBatch(GraphicsDevice graphicsDevice)
         {
-            _graphics = graphicsDevice;
+            this._graphics = graphicsDevice;
             
             this.Init();
         }
 
         private void Init()
         {
-            var center = new Vector2(_graphics.Viewport.Width * 0.5f, _graphics.Viewport.Height * 0.5f);
+            var center = new Vector2(this._graphics.Viewport.Width * 0.5f, this._graphics.Viewport.Height * 0.5f);
 
-            _basicEffect = new BasicEffect(_graphics);
-            _basicEffect.World = Matrix.Identity;
-            _basicEffect.View = Matrix.CreateLookAt(new Vector3(center, 0), new Vector3(center, 1), Vector3.Down);
-            _basicEffect.Projection = Matrix.CreateOrthographic(center.X * 2, center.Y * 2, -0.5f, 1);
+            this._basicEffect = new BasicEffect(this._graphics);
+            this._basicEffect.World = Matrix.Identity;
+            this._basicEffect.View = Matrix.CreateLookAt(new Vector3(center, 0), new Vector3(center, 1), Vector3.Down);
+            this._basicEffect.Projection = Matrix.CreateOrthographic(center.X * 2, center.Y * 2, -0.5f, 1);
 
-            _basicEffect.VertexColorEnabled = true;
+            this._basicEffect.VertexColorEnabled = true;
             var rasterizerState = new RasterizerState();
             rasterizerState.CullMode = CullMode.None;
 
-            _graphics.RasterizerState = rasterizerState;
+            this._graphics.RasterizerState = rasterizerState;
 
-            _vertices = new VertexPositionColor[500];
+            this._vertices = new VertexPositionColor[500];
         }
 
         public void Begin(PrimitiveType primitiveType)
         {
-            if (_hasBegun)
+            if (this._hasBegun)
             {
                 throw new Exception("You should not call the begin method twice");
             }
 
-            _primitiveType = primitiveType;
+            this._primitiveType = primitiveType;
 
             //tell our basic effect to begin.
-            _basicEffect.CurrentTechnique.Passes[0].Apply();
+            this._basicEffect.CurrentTechnique.Passes[0].Apply();
 
-            _hasBegun = true;
+            this._hasBegun = true;
         }
 
         public void End()
         {
-            if (!_hasBegun)
+            if (!this._hasBegun)
             {
                 throw new Exception("Must call begin before you call end");
             }
 
-            var primitivesCount = _positionInBuffer / this.NumVertsPerPrimitive();
+            var primitivesCount = this._positionInBuffer / this.NumVertsPerPrimitive();
 
-            if (_primitiveType == PrimitiveType.LineStrip)
+            if (this._primitiveType == PrimitiveType.LineStrip)
             {
                 for (int i = 0; i < primitivesCount; i++)
                 {
-                    _graphics.DrawUserPrimitives<VertexPositionColor>(_primitiveType, _vertices, i * this.NumVertsPerPrimitive(), this.NumVertsPerPrimitive() - 1);      
+                    this._graphics.DrawUserPrimitives<VertexPositionColor>(this._primitiveType, this._vertices, i * this.NumVertsPerPrimitive(), this.NumVertsPerPrimitive() - 1);      
                 }
             }
             else
             {
                 if (primitivesCount > 0)
                 {
-                    _graphics.DrawUserPrimitives<VertexPositionColor>(_primitiveType, _vertices, 0, primitivesCount);
+                    this._graphics.DrawUserPrimitives<VertexPositionColor>(this._primitiveType, this._vertices, 0, primitivesCount);
                 }    
             }
 
-            _positionInBuffer = 0;
-            _hasBegun = false;
+            this._positionInBuffer = 0;
+            this._hasBegun = false;
         }
 
         public void AddVertices(VertexPositionColor[] vertices)
         {
-            AddVerticesToBuffer(vertices);
+            this.AddVerticesToBuffer(vertices);
         }
 
         private void AddVerticesToBuffer(VertexPositionColor[] vertices)
         {
             foreach (var vertexPositionColor in vertices)
             {
-                _vertices[_positionInBuffer] = vertexPositionColor;
-                _positionInBuffer++;
+                this._vertices[this._positionInBuffer] = vertexPositionColor;
+                this._positionInBuffer++;
             }
         }
 
         private int NumVertsPerPrimitive()
         {
-            switch (_primitiveType)
+            switch (this._primitiveType)
             {
                 case PrimitiveType.TriangleList:
                     return 3;

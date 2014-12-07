@@ -26,7 +26,10 @@ namespace Lillheaton.Monogame.Pathfinding.Extensions
             // East
             if (that.Position.X + 1 < xLength)
             {
-                yield return map[(int)(that.Position.X + 1)][(int)that.Position.Y];
+                if (map[(int)(that.Position.X + 1)][(int)that.Position.Y].IsWalkable)
+                {
+                    yield return map[(int)(that.Position.X + 1)][(int)that.Position.Y];    
+                }
             }
 
             // West
@@ -44,31 +47,46 @@ namespace Lillheaton.Monogame.Pathfinding.Extensions
             // South
             if (that.Position.Y + 1 < yLength)
             {
-                yield return map[(int)(that.Position.X)][(int)that.Position.Y + 1];
+                if (map[(int)(that.Position.X)][(int)that.Position.Y + 1].IsWalkable)
+                {
+                    yield return map[(int)(that.Position.X)][(int)that.Position.Y + 1];    
+                }
             }
 
             // North-West
             if (that.Position.Y - 1 > 0 && that.Position.X - 1 > 0)
             {
-                yield return map[(int)(that.Position.X - 1)][(int)that.Position.Y - 1];
+                if (map[(int)(that.Position.X - 1)][(int)that.Position.Y - 1].IsWalkable)
+                {
+                    yield return map[(int)(that.Position.X - 1)][(int)that.Position.Y - 1];    
+                }
             }
 
             // North-East
             if (that.Position.Y - 1 > 0 && that.Position.X + 1 < xLength)
             {
-                yield return map[(int)(that.Position.X + 1)][(int)that.Position.Y - 1];
+                if (map[(int)(that.Position.X + 1)][(int)that.Position.Y - 1].IsWalkable)
+                {
+                    yield return map[(int)(that.Position.X + 1)][(int)that.Position.Y - 1];    
+                }
             }
 
             // South-West
             if (that.Position.Y + 1 < yLength && that.Position.X - 1 > 0)
             {
-                yield return map[(int)(that.Position.X - 1)][(int)that.Position.Y + 1];
+                if (map[(int)(that.Position.X - 1)][(int)that.Position.Y + 1].IsWalkable)
+                {
+                    yield return map[(int)(that.Position.X - 1)][(int)that.Position.Y + 1];    
+                }
             }
 
             // South-East
             if (that.Position.Y + 1 < yLength && that.Position.X + 1 < xLength)
             {
-                yield return map[(int)(that.Position.X + 1)][(int)that.Position.Y + 1];
+                if (map[(int)(that.Position.X + 1)][(int)that.Position.Y + 1].IsWalkable)
+                {
+                    yield return map[(int)(that.Position.X + 1)][(int)that.Position.Y + 1];    
+                }
             }
         }
     }

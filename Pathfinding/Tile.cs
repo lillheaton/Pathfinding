@@ -8,6 +8,7 @@ namespace Pathfinding
         public const int TileSize = 30;
         public Vector3 Position { get; private set; }
         public int Size {  get { return TileSize; } }
+        public bool IsWalkable { get; set; }
 
         public Tile(Vector3 position)
         {

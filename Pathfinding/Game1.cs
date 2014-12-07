@@ -48,7 +48,7 @@ namespace Pathfinding
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            gameManager.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -57,11 +57,8 @@ namespace Pathfinding
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
-
             gameManager.Draw(spriteBatch);
 
-            spriteBatch.End();
             base.Draw(gameTime);
         }
     }

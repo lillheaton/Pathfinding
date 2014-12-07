@@ -7,5 +7,6 @@ namespace Lillheaton.Monogame.Pathfinding
     {
         Vector3 Position { get; }
         int Size { get; }
+        bool IsWalkable { get; }
     }
 }
