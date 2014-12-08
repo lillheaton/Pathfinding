@@ -13,12 +13,12 @@ namespace Pathfinding
 {
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        GameManager gameManager;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+        private GameManager gameManager;
+        public AssetsManager assetsManager;
 
-        public Game1()
-            : base()
+        public Game1() : base()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -26,7 +26,7 @@ namespace Pathfinding
 
         protected override void Initialize()
         {
-            gameManager = new GameManager(GraphicsDevice);
+            gameManager = new GameManager(this);
             base.Initialize();
         }
 
@@ -34,6 +34,7 @@ namespace Pathfinding
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            assetsManager = new AssetsManager(Content);
 
             // TODO: use this.Content to load your game content here
         }

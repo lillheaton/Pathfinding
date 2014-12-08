@@ -8,7 +8,7 @@ namespace Lillheaton.Monogame.Pathfinding
 {
     public class Astar
     {
-        public static IEnumerable<INode> CalculatePath(ITile[][] map, ITile start, ITile goal)
+        public static IEnumerable<INode> CalculatePath(ITile[][] map, ITile start, ITile goal, out List<INode> visitedNodes)
         {
             var closedSet = new List<INode>();
             var openSet = new List<INode>();
@@ -23,6 +23,7 @@ namespace Lillheaton.Monogame.Pathfinding
 
                 if (current.Tile == goal)
                 {
+                    visitedNodes = new List<INode>(openSet.Concat(closedSet));
                     return ReconstructPath(current);
                 }
 
@@ -59,7 +60,7 @@ namespace Lillheaton.Monogame.Pathfinding
                     }
                 }
             }
-
+            visitedNodes = new List<INode>(openSet.Concat(closedSet));
             return null;
         }
 
@@ -76,13 +77,12 @@ namespace Lillheaton.Monogame.Pathfinding
 
         public static float DiagonalHeuristic(ITile from, ITile to)
         {
-            var xDistance = Math.Abs(from.Position.X - to.Position.X);
-            var yDistance = Math.Abs(from.Position.Y - to.Position.Y);
-            if (xDistance > yDistance)
-            {
-                return (14 * yDistance) + (10 * (xDistance - yDistance));
-            }
-            return (14 * yDistance) + (10 * (yDistance - xDistance));
+            var dx = Math.Abs(from.Position.X - to.Position.X);
+            var dy = Math.Abs(from.Position.Y - to.Position.Y);            
+            var d = from.IsDiagonalTo(to) ? 14 : 10;
+            var d2 = Math.Sqrt(2) * d;
+
+            return (float)(d * (dx + dy) + (d2 - 2 * d) * Math.Min(dx, dy));
         }
     }
 }

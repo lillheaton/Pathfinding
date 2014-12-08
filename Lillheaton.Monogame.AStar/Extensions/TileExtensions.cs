@@ -35,13 +35,19 @@ namespace Lillheaton.Monogame.Pathfinding.Extensions
             // West
             if (that.Position.X - 1 > 0)
             {
-                yield return map[(int)(that.Position.X - 1)][(int)that.Position.Y];
+                if (map[(int)(that.Position.X - 1)][(int)that.Position.Y].IsWalkable)
+                {
+                    yield return map[(int)(that.Position.X - 1)][(int)that.Position.Y];    
+                }
             }
 
             // North
             if (that.Position.Y - 1 > 0)
             {
-                yield return map[(int)(that.Position.X)][(int)that.Position.Y - 1];
+                if (map[(int)(that.Position.X)][(int)that.Position.Y - 1].IsWalkable)
+                {
+                    yield return map[(int)(that.Position.X)][(int)that.Position.Y - 1];    
+                }
             }
 
             // South

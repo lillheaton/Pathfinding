@@ -2,6 +2,8 @@
 using Lillheaton.Monogame.Steering;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
+using Pathfinding.Graphics;
 using Pathfinding.Primitives;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,42 +12,36 @@ namespace Pathfinding
 {
     public class GameManager
     {
-        private GraphicsDevice _graphicsDevice;
+        private Game1 _game;
         private World _world;
+        private BasicGraphicsHelper _graphicsHelper;
 
-        private Texture2D _texture2d;
         private List<INode> _solution;
+        private List<INode> _visitedNodes; 
         private Triangle _triangle;
         private PrimitiveBatch _primitiveBatch;
 
-        public GameManager(GraphicsDevice graphicsDevice)
+        public GameManager(Game1 game)
         {
-            _graphicsDevice = graphicsDevice;
-
+            this._game = game;
             this.Init();
         }
 
         private void Init()
         {
-            _world = new World(_graphicsDevice, 16, 16);
+            _world = new World(_game.GraphicsDevice, 16, 16);
+            _graphicsHelper = new BasicGraphicsHelper(_game);
 
             var start = _world.Tiles[0][0];
             var goal = _world.Tiles[11][10];
 
-            _solution = Astar.CalculatePath(_world.Tiles, start, goal).Reverse().ToList();
+            _solution = Astar.CalculatePath(_world.Tiles, start, goal, out _visitedNodes).Reverse().ToList();
             
             _triangle = new Triangle(new Vector3(0, 0, 0));
             _triangle.SetPath(new Path(_solution.Select(s => s.Tile.Position * Tile.TileSize).ToList()));
+            _triangle.Obstacles = _world.Obstacles;
 
-            _primitiveBatch = new PrimitiveBatch(_graphicsDevice);
-
-            _texture2d = new Texture2D(_graphicsDevice, Tile.TileSize, Tile.TileSize);
-            Color[] data = new Color[Tile.TileSize * Tile.TileSize];
-            for (int i = 0; i < data.Length; ++i)
-            {
-                data[i] = Color.Black;
-            }
-            _texture2d.SetData(data);
+            _primitiveBatch = new PrimitiveBatch(_game.GraphicsDevice);
         }
 
         public void Update(GameTime gameTime)
@@ -57,14 +53,18 @@ namespace Pathfinding
         {
             spriteBatch.Begin();
 
+            // Draw world
             _world.Draw(spriteBatch);
 
+            // Draw solution nodes
             foreach (var node in _solution)
             {
-                spriteBatch.Draw(
-                    _texture2d,
-                    new Vector2((int)node.Tile.Position.X * Tile.TileSize, (int)node.Tile.Position.Y * Tile.TileSize),
-                    Color.White);
+                _graphicsHelper.DrawNode(spriteBatch, node);
+            }
+
+            foreach (var visitedNode in _visitedNodes)
+            {
+                _graphicsHelper.DrawNodeInformation(spriteBatch, visitedNode);
             }
 
             spriteBatch.End();

@@ -14,7 +14,7 @@ namespace Pathfinding
 
         public float GetRadius()
         {
-            return Tile.TileSize / 2;
+            return Tile.TileSize;
         }
     }
 }

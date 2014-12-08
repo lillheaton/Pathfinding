@@ -39,8 +39,10 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AssetsManager.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameManager.cs" />
+    <Compile Include="Graphics\BasicGraphicsHelper.cs" />
     <Compile Include="Obstacle.cs" />
     <Compile Include="PrimitiveBatch.cs" />
     <Compile Include="Primitives\Triangle.cs" />
@@ -71,11 +73,10 @@
   <ItemGroup>
     <Content Include="Icon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Content\Fonts\MyFont.xnb" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lillheaton.Monogame.AStar\Lillheaton.Monogame.AStar.csproj">
