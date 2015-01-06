@@ -11,7 +11,7 @@ namespace Pathfinding
         /// <param name="pointB"></param>
         /// <param name="rect"></param>
         /// <returns></returns>
-        public bool Collides(Vector2 pointA, Vector2 pointB, Rectangle rect)
+        public static bool Collides(Vector2 pointA, Vector2 pointB, Rectangle rect)
         {
             var p = new [] { -(pointA.X - pointB.X), (pointA.X - pointB.X), -(pointA.Y - pointB.Y), (pointA.X - pointB.X) };
             var q = new[] { (pointA.X - rect.Left), (rect.Right - pointA.X), (pointA.Y - rect.Top), (rect.Bottom - pointA.Y) };

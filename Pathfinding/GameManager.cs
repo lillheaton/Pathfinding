@@ -38,7 +38,7 @@ namespace Pathfinding
             _solution = Astar.CalculatePath(_world.Tiles, start, goal, out _visitedNodes).Reverse().ToList();
             
             _triangle = new Triangle(new Vector3(0, 0, 0));
-            _triangle.SetPath(new Path(_solution.Select(s => s.Tile.Position * Tile.TileSize + new Vector3(Tile.TileSize / 2, Tile.TileSize / 2, 0)).ToList()));
+            _triangle.SetPath(new Path(this._solution.Select(s => new Vector3(s.Tile.Position.X, s.Tile.Position.Y, 0) * Tile.TileSize + new Vector3(Tile.TileSize / 2, Tile.TileSize / 2, 0)).ToList()));
             _triangle.Obstacles = _world.Obstacles;
 
             _primitiveBatch = new PrimitiveBatch(_game.GraphicsDevice);
@@ -54,18 +54,18 @@ namespace Pathfinding
             spriteBatch.Begin();
 
             // Draw world
-            _world.Draw(spriteBatch);
+            _world.Draw(spriteBatch, _primitiveBatch);
 
             // Draw solution nodes
-            foreach (var node in _solution)
-            {
-                _graphicsHelper.DrawNode(spriteBatch, node);
-            }
+            //foreach (var node in _solution)
+            //{
+            //    _graphicsHelper.DrawNode(spriteBatch, node);
+            //}
 
-            foreach (var visitedNode in _visitedNodes)
-            {
-                _graphicsHelper.DrawNodeInformation(spriteBatch, visitedNode);
-            }
+            //foreach (var visitedNode in _visitedNodes)
+            //{
+            //    _graphicsHelper.DrawNodeInformation(spriteBatch, visitedNode);
+            //}
 
             spriteBatch.End();
 
