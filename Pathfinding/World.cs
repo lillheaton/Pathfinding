@@ -15,6 +15,7 @@ namespace Pathfinding
 
         public Tile[][] Tiles { get; private set; }
         public Obstacle[] Obstacles { get; private set; }
+        public Waypoint[] Waypoints { get; private set; }
 
         public World(GraphicsDevice graphicsDevice, int width, int height)
         {
@@ -50,6 +51,14 @@ namespace Pathfinding
                     Tiles[i][j].IsWalkable = true;
                 }
             }
+        }
+
+        private void CalculateWaypoints()
+        {
+            // http://www.redblobgames.com/pathfinding/grids/algorithms.html
+            // http://www.redblobgames.com/pathfinding/a-star/implementation.html
+            // http://simblob.blogspot.se/2014/02/pathfinding-for-tower-defense-games.html
+
         }
 
         private IEnumerable<Obstacle> GenerateObstacles()

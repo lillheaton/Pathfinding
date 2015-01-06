@@ -1,4 +1,5 @@
 ﻿using Lillheaton.Monogame.Steering;
+using Lillheaton.Monogame.Steering.Behaviours;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

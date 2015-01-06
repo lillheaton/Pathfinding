@@ -46,6 +46,9 @@
   <ItemGroup>
     <Compile Include="AStar.cs" />
     <Compile Include="Direction.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Extensions\TileExtensions.cs" />
     <Compile Include="INode.cs" />
     <Compile Include="ITile.cs" />

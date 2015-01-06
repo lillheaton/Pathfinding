@@ -40,7 +40,7 @@ namespace Lillheaton.Monogame.Pathfinding
                     }
 
                     // If diagonal g value is 14 otherwise 10
-                    int g = current.Tile.IsDiagonalTo(neighbor) ? 14 : 10;
+                    int g = current.Tile.IsDiagonalTo(neighbor) ? 2 : 1;
                     float h = DiagonalHeuristic(neighbor, goal);
                     float f = h + g;
 
