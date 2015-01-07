@@ -16,8 +16,8 @@ namespace Pathfinding
         private World _world;
         private BasicGraphicsHelper _graphicsHelper;
 
-        private List<INode> _solution;
-        private List<INode> _visitedNodes; 
+        private List<TileNode> _solution;
+        private List<TileNode> _visitedNodes; 
         private Triangle _triangle;
         private PrimitiveBatch _primitiveBatch;
 
@@ -35,7 +35,10 @@ namespace Pathfinding
             var start = _world.Tiles[0][0];
             var goal = _world.Tiles[11][10];
 
-            _solution = Astar.CalculatePath(_world.Tiles, start, goal, out _visitedNodes).Reverse().ToList();
+            _solution = Astar.CalculatePath(_world.Tiles, start, goal, out _visitedNodes).Reverse().Cast<TileNode>().ToList();
+
+            var esjktn = new List<WaypointNode>();
+            var test = Astar.CalculatePath(_world.Waypoints.ToArray(), start.Position * Tile.TileSize + Tile.CenterVector, goal.Position * Tile.TileSize + Tile.CenterVector, out esjktn);
             
             _triangle = new Triangle(new Vector3(0, 0, 0));
             _triangle.SetPath(new Path(this._solution.Select(s => new Vector3(s.Tile.Position.X, s.Tile.Position.Y, 0) * Tile.TileSize + new Vector3(Tile.CenterVector, 0)).ToList()));

@@ -42,7 +42,7 @@ namespace Pathfinding.Graphics
             }
         }
 
-        public void DrawNodeInformation(SpriteBatch spriteBatch, INode node)
+        public void DrawNodeInformation(SpriteBatch spriteBatch, TileNode node)
         {
             if (_game.assetsManager == null)
             {
@@ -58,7 +58,7 @@ namespace Pathfinding.Graphics
                 Color.White);
         }
 
-        public void DrawNode(SpriteBatch spriteBatch, INode node)
+        public void DrawNode(SpriteBatch spriteBatch, TileNode node)
         {
             this._tileTexture.SetData(_black);
 

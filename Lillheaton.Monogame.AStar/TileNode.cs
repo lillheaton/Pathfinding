@@ -1,7 +1,7 @@
 ﻿
 namespace Lillheaton.Monogame.Pathfinding
 {
-    public class Node : INode
+    public class TileNode : INode
     {
         public ITile Tile { get; set; }
         public INode Parent { get; set; }
