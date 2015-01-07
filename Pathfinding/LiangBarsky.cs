@@ -6,6 +6,7 @@ namespace Pathfinding
     {
         /// <summary>
         /// https://gist.github.com/ChickenProp/3194723
+        /// http://www.dailyfreecode.com/code/liang-barsky-algorithm-line-clipping-709.aspx
         /// </summary>
         /// <param name="pointA"></param>
         /// <param name="pointB"></param>
@@ -13,40 +14,75 @@ namespace Pathfinding
         /// <returns></returns>
         public static bool Collides(Vector2 pointA, Vector2 pointB, Rectangle rect)
         {
-            var p = new [] { -(pointA.X - pointB.X), (pointA.X - pointB.X), -(pointA.Y - pointB.Y), (pointA.X - pointB.X) };
-            var q = new[] { (pointA.X - rect.Left), (rect.Right - pointA.X), (pointA.Y - rect.Top), (rect.Bottom - pointA.Y) };
-            var u1 = double.NegativeInfinity;
-            var u2 = double.PositiveInfinity;
+            var u1 = 0.0f;
+            var u2 = 1.0f;
 
-            for (int i = 0; i < 4; i++)
+            var dx = pointB.X - pointA.X;
+            var t1 = pointA.X - rect.Left;
+            var t2 = rect.Right - pointA.X;
+            var t3 = pointA.Y - rect.Top;
+            var t4 = rect.Bottom - pointA.Y;
+            var t5 = -1 * dx;
+
+            if (ClipTest(t5, t1, ref u1, ref u2) == true)
             {
-                if ((int)p[i] == 0)
+                if (ClipTest(dx, t2, ref u1, ref u2) == true)
                 {
-                    if (q[i] < 0)
+                    var dy = pointB.Y - pointA.Y;
+                    var t6 = -1 * dy;
+
+                    if (ClipTest(t6, t3, ref u1, ref u2) == true)
                     {
-                        return false;
+                        if (ClipTest(dy, t4, ref u1, ref u2) == true)
+                        {
+                            if (u1 > 0.0f)
+                            {
+                                return true;
+                            }
+                            if (u2 < 1.0f)
+                            {
+                                return true;
+                            }
+                        }
                     }
-                }
-                else
-                {
-                    var t = q[i] / p[i];
-                    if (p[i] < 0 && u1 < t)
-                    {
-                        u1 = t;
-                    }
-                    else if(p[i] > 0 && u2 > t)
-                    {
-                        u2 = t;
-                    }
+
                 }
             }
 
-            if (u1 > u2 || u1 > 1 || u1 < 0)
+            return false;
+        }
+
+        private static bool ClipTest(float p, float q, ref float u1, ref float u2)
+        {
+            float r;
+            bool flag = true;
+
+            if (p < 0.0f)
             {
-                return false;
+                r = q / p;
+                if (r > u2)
+                {
+                    flag = false;
+                }
+                else if(r > u1)
+                {
+                    u2 = r;
+                }
+            }
+            else if(p > 0.0f)
+            {
+                r = q / p;
+                if (r < u1)
+                {
+                    flag = false;
+                }
+            }
+            else if (q < 0.0f)
+            {
+                flag = false;
             }
 
-            return true;
+            return flag;
         }
     }
 }

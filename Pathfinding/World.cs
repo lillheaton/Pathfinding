@@ -110,13 +110,18 @@ namespace Pathfinding
                 // Loop through all again to see if any waypoint is visible to each other
                 foreach (var nestedWaypoint in Waypoints.Where(s => s != waypoint))
                 {
+                    bool collide = false;
                     foreach (var obstacle in Obstacles)
                     {
-                        if (!LiangBarsky.Collides(waypoint.Position, nestedWaypoint.Position, obstacle.Rectangle))
+                        if (LiangBarsky.Collides(waypoint.Position * Tile.TileSize + new Vector2(Tile.TileSize / 2, Tile.TileSize / 2), nestedWaypoint.Position * Tile.TileSize + new Vector2(Tile.TileSize / 2, Tile.TileSize / 2), obstacle.Rectangle))
                         {
-                            waypoint.RelatedPoints.Add(nestedWaypoint);
-                            break;
+                            collide = true;
                         }
+                    }
+
+                    if (collide == false)
+                    {
+                        waypoint.RelatedPoints.Add(nestedWaypoint);    
                     }
                 }
             }
