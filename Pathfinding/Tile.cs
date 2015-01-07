@@ -6,6 +6,7 @@ namespace Pathfinding
     public class Tile : ITile
     {
         public const int TileSize = 30;
+        public static Vector2 CenterVector = new Vector2(TileSize / 2, TileSize / 2);
         public Vector2 Position { get; private set; }
         public int Size {  get { return TileSize; } }
         public bool IsWalkable { get; set; }

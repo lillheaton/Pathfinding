@@ -1,7 +1,4 @@
-﻿using System.Threading;
-
-using Lillheaton.Monogame.Pathfinding.Extensions;
-
+﻿using Lillheaton.Monogame.Pathfinding.Extensions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -113,7 +110,7 @@ namespace Pathfinding
                     bool collide = false;
                     foreach (var obstacle in Obstacles)
                     {
-                        if (LiangBarsky.Collides(waypoint.Position * Tile.TileSize + new Vector2(Tile.TileSize / 2, Tile.TileSize / 2), nestedWaypoint.Position * Tile.TileSize + new Vector2(Tile.TileSize / 2, Tile.TileSize / 2), obstacle.Rectangle))
+                        if (LiangBarsky.Collides(waypoint.Position * Tile.TileSize + Tile.CenterVector, nestedWaypoint.Position * Tile.TileSize + Tile.CenterVector, obstacle.Rectangle))
                         {
                             collide = true;
                         }
@@ -156,8 +153,8 @@ namespace Pathfinding
                 
                 foreach (var related in waypoint.RelatedPoints)
                 {
-                    vertices.Add(new VertexPositionColor(new Vector3(waypoint.Position, 0) * Tile.TileSize + new Vector3(Tile.TileSize / 2, Tile.TileSize / 2, 0), Color.Red));
-                    vertices.Add(new VertexPositionColor(new Vector3(related.Position, 0) * Tile.TileSize + new Vector3(Tile.TileSize / 2, Tile.TileSize / 2, 0), Color.Red));
+                    vertices.Add(new VertexPositionColor(new Vector3(waypoint.Position, 0) * Tile.TileSize + new Vector3(Tile.CenterVector, 0), Color.Red));
+                    vertices.Add(new VertexPositionColor(new Vector3(related.Position, 0) * Tile.TileSize + new Vector3(Tile.CenterVector, 0), Color.Red));
                 }
 
                 primitiveBatch.AddVertices(vertices.ToArray());

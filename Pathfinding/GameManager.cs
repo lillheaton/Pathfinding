@@ -38,7 +38,7 @@ namespace Pathfinding
             _solution = Astar.CalculatePath(_world.Tiles, start, goal, out _visitedNodes).Reverse().ToList();
             
             _triangle = new Triangle(new Vector3(0, 0, 0));
-            _triangle.SetPath(new Path(this._solution.Select(s => new Vector3(s.Tile.Position.X, s.Tile.Position.Y, 0) * Tile.TileSize + new Vector3(Tile.TileSize / 2, Tile.TileSize / 2, 0)).ToList()));
+            _triangle.SetPath(new Path(this._solution.Select(s => new Vector3(s.Tile.Position.X, s.Tile.Position.Y, 0) * Tile.TileSize + new Vector3(Tile.CenterVector, 0)).ToList()));
             _triangle.Obstacles = _world.Obstacles;
 
             _primitiveBatch = new PrimitiveBatch(_game.GraphicsDevice);
