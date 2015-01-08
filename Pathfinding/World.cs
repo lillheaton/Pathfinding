@@ -24,7 +24,7 @@ namespace Pathfinding
             this.Init(graphicsDevice);
         }
 
-        public void Init(GraphicsDevice graphicsDevice)
+        private void Init(GraphicsDevice graphicsDevice)
         {
             this.GenerateWorld();
             Obstacles = this.GenerateObstacles().ToArray();
@@ -96,31 +96,10 @@ namespace Pathfinding
                 }
             }
 
-            this.CalculateRelatedWaypoints();
-        }
-
-        private void CalculateRelatedWaypoints()
-        {
             // Loop through every waypoint
             foreach (var waypoint in Waypoints)
             {
-                // Loop through all again to see if any waypoint is visible to each other
-                foreach (var nestedWaypoint in Waypoints.Where(s => s != waypoint))
-                {
-                    bool collide = false;
-                    foreach (var obstacle in Obstacles)
-                    {
-                        if (LiangBarsky.Collides(waypoint.Position * Tile.TileSize + Tile.CenterVector, nestedWaypoint.Position * Tile.TileSize + Tile.CenterVector, obstacle.Rectangle))
-                        {
-                            collide = true;
-                        }
-                    }
-
-                    if (collide == false)
-                    {
-                        waypoint.RelatedPoints.Add(nestedWaypoint);    
-                    }
-                }
+                CalculateRelatedWaypoints(waypoint, Waypoints, Obstacles);
             }
         }
 
@@ -136,6 +115,18 @@ namespace Pathfinding
             {
                 Tiles[10][i].IsWalkable = false;
                 yield return new Obstacle(Tiles[10][i].Position * Tile.TileSize);
+            }
+        }
+
+        public static void CalculateRelatedWaypoints(Waypoint calculatingWaypoint, List<Waypoint> allWaypoints, Obstacle[] obstacles)
+        {
+            // Loop through all again to see if any waypoint is visible to each other
+            foreach (var nestedWaypoint in allWaypoints.Where(s => s != calculatingWaypoint))
+            {
+                if (PathHelper.ClearViewFrom(calculatingWaypoint.Position * Tile.TileSize + Tile.CenterVector, nestedWaypoint.Position * Tile.TileSize + Tile.CenterVector, obstacles))
+                {
+                    calculatingWaypoint.RelatedPoints.Add(nestedWaypoint);
+                }
             }
         }
 

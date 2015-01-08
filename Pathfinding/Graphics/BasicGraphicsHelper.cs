@@ -1,4 +1,6 @@
 ﻿using Lillheaton.Monogame.Pathfinding;
+using Lillheaton.Monogame.Pathfinding.Node;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

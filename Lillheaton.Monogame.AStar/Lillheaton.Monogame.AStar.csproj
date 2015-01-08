@@ -51,12 +51,12 @@
     </Compile>
     <Compile Include="Extensions\TileExtensions.cs" />
     <Compile Include="Extensions\VectorExtensions.cs" />
-    <Compile Include="INode.cs" />
+    <Compile Include="Node\INode.cs" />
     <Compile Include="ITile.cs" />
     <Compile Include="IWaypoint.cs" />
-    <Compile Include="TileNode.cs" />
+    <Compile Include="Node\TileNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WaypointNode.cs" />
+    <Compile Include="Node\WaypointNode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

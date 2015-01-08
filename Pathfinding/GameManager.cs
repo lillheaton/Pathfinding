@@ -1,12 +1,10 @@
-﻿using Lillheaton.Monogame.Pathfinding;
-using Lillheaton.Monogame.Steering;
+﻿using Lillheaton.Monogame.Pathfinding.Node;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using Microsoft.Xna.Framework.Input;
 using Pathfinding.Graphics;
-using Pathfinding.Primitives;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Pathfinding
 {
@@ -16,9 +14,9 @@ namespace Pathfinding
         private World _world;
         private BasicGraphicsHelper _graphicsHelper;
 
-        private List<TileNode> _solution;
+        private Unit _unit;
+        private List<Vector2> _solution;
         private List<TileNode> _visitedNodes; 
-        private Triangle _triangle;
         private PrimitiveBatch _primitiveBatch;
 
         public GameManager(Game1 game)
@@ -31,25 +29,24 @@ namespace Pathfinding
         {
             _world = new World(_game.GraphicsDevice, 16, 16);
             _graphicsHelper = new BasicGraphicsHelper(_game);
-
-            var start = _world.Tiles[0][0];
-            var goal = _world.Tiles[11][10];
-
-            _solution = Astar.CalculatePath(_world.Tiles, start, goal, out _visitedNodes).Reverse().Cast<TileNode>().ToList();
-
-            var esjktn = new List<WaypointNode>();
-            var test = Astar.CalculatePath(_world.Waypoints.ToArray(), start.Position * Tile.TileSize + Tile.CenterVector, goal.Position * Tile.TileSize + Tile.CenterVector, out esjktn);
-            
-            _triangle = new Triangle(new Vector3(0, 0, 0));
-            _triangle.SetPath(new Path(this._solution.Select(s => new Vector3(s.Tile.Position.X, s.Tile.Position.Y, 0) * Tile.TileSize + new Vector3(Tile.CenterVector, 0)).ToList()));
-            _triangle.Obstacles = _world.Obstacles;
-
+            _unit = new Unit(new Vector3(50, 50, 0), _world);
             _primitiveBatch = new PrimitiveBatch(_game.GraphicsDevice);
+        }
+
+        private void UpdateMouseInput()
+        {
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                _unit.MoveToPosition(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+            }
+
+            Console.WriteLine(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
         }
 
         public void Update(GameTime gameTime)
         {
-            _triangle.Update(gameTime);
+            this.UpdateMouseInput();
+            _unit.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -72,9 +69,7 @@ namespace Pathfinding
 
             spriteBatch.End();
 
-            _primitiveBatch.Begin(PrimitiveType.TriangleList);
-            _triangle.Draw(_primitiveBatch);
-            _primitiveBatch.End();
+            _unit.Draw(_primitiveBatch);
         }
     }
 }
