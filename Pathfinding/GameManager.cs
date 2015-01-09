@@ -18,6 +18,7 @@ namespace Pathfinding
         private List<Vector2> _solution;
         private List<TileNode> _visitedNodes; 
         private PrimitiveBatch _primitiveBatch;
+        private bool _mousePressed = false;
 
         public GameManager(Game1 game)
         {
@@ -37,8 +38,18 @@ namespace Pathfinding
         {
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
-                _unit.MoveToPosition(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+                if (!this._mousePressed)
+                {
+                    _unit.MoveToPosition(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+                    _mousePressed = true;
+                }
+                else
+                {
+                    _mousePressed = false;
+                }
             }
+
+            
         }
 
         public void Update(GameTime gameTime)
@@ -68,6 +79,7 @@ namespace Pathfinding
             spriteBatch.End();
 
             _unit.Draw(_primitiveBatch);
+            //_unit.DrawAStarData(spriteBatch, _graphicsHelper);
         }
     }
 }

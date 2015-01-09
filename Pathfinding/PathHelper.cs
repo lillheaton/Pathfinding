@@ -1,4 +1,5 @@
-﻿using Lillheaton.Monogame.Pathfinding;
+﻿using Lillheaton.Monogame.Dijkstra;
+using Lillheaton.Monogame.Pathfinding;
 using Lillheaton.Monogame.Pathfinding.Node;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace Pathfinding
 {
     public class PathHelper
     {
-        public static Vector2[] CalculatePath(Tile[][] map, Obstacle[] obstacles, Vector2 currentPosition, Vector2 goal)
+        public static Vector2[] CalculatePath(Tile[][] map, List<Obstacle> obstacles, Vector2 currentPosition, Vector2 goal)
         {
             // First we check if we even need to calculate a path
             if (ClearViewFrom(currentPosition, goal, obstacles))
@@ -42,35 +43,18 @@ namespace Pathfinding
             return Astar.CalculatePath(map, currentTile, goalTile, out visitedNodes).Reverse().ToArray();
         }
 
-        public static Vector2[] CalculatePath(World world, Obstacle[] obstacles, Vector2 currentPosition, Vector2 goal)
+        public static Vector2[] CalculatePath(World world, Vector2 currentPosition, Vector2 goal)
         {
-            var xLength = world.Tiles.Length;
-            var yLength = world.Tiles[0].Length;
-            Tile currentTile = null;
-            Tile goalTile = null;
-            for (int i = 0; i < xLength; i++)
-            {
-                for (int j = 0; j < yLength; j++)
-                {
-                    if (world.Tiles[i][j].Rectangle.Contains(currentPosition))
-                    {
-                        currentTile = world.Tiles[i][j];
-                    }
-
-                    if (world.Tiles[i][j].Rectangle.Contains(goal))
-                    {
-                        goalTile = world.Tiles[i][j];
-                    }
-                }
-            }
+            Tile currentTile = world.TileAt(currentPosition);
+            Tile goalTile = world.TileAt(goal);
 
             // Create start position and goal as waypoints
             var startWaypoint = new Waypoint { Position = currentTile.Position };
             var endWaypoint = new Waypoint { Position = goalTile.Position };
 
             // Calculate there related waypoints
-            World.CalculateRelatedWaypoints(startWaypoint, world.Waypoints, obstacles);
-            World.CalculateRelatedWaypoints(endWaypoint, world.Waypoints, obstacles);
+            World.CalculateRelatedWaypoints(startWaypoint, world.Waypoints, world.Obstacles);
+            World.CalculateRelatedWaypoints(endWaypoint, world.Waypoints, world.Obstacles);
 
             // Copy list waypointList
             var waypointsCopy = world.Waypoints.Concat(new[] { startWaypoint, endWaypoint });
@@ -82,8 +66,10 @@ namespace Pathfinding
             }
 
             // Calculate path and return solution
-            List<WaypointNode> visitedNodes;
-            var solution = Astar.CalculatePath(waypointsCopy.ToArray(), startWaypoint, endWaypoint, out visitedNodes).Reverse().ToArray();
+            var solution = Dijkstra.CalculatePath(waypointsCopy.OfType<IWaypoint>().ToList(), startWaypoint, endWaypoint).Reverse().ToArray();
+
+            //List<WaypointNode> visitedNodes;
+            //var solution = Astar.CalculatePath(waypointsCopy.ToArray(), startWaypoint, endWaypoint, out visitedNodes).Reverse().ToArray();
 
             // Need to do some cleanup
             foreach (var relatedWaypoint in endWaypoint.RelatedPoints)
@@ -95,7 +81,7 @@ namespace Pathfinding
             return solution;
         }
 
-        public static bool ClearViewFrom(Vector2 pointA, Vector2 pointB, Obstacle[] obstacles)
+        public static bool ClearViewFrom(Vector2 pointA, Vector2 pointB, List<Obstacle> obstacles)
         {
             bool clearView = true;
             foreach (var obstacle in obstacles)

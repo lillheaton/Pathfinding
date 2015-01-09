@@ -44,14 +44,14 @@ namespace Pathfinding.Graphics
             }
         }
 
-        public void DrawNodeInformation(SpriteBatch spriteBatch, TileNode node)
+        public void DrawNodeInformation(SpriteBatch spriteBatch, INode node)
         {
             if (_game.assetsManager == null)
             {
                 return;
             }
-
-            var vector = node.Tile.Position * Tile.TileSize;
+            
+            var vector = node.Position * Tile.TileSize;
 
             spriteBatch.DrawString(
                 _game.assetsManager.FontDictionary["MyFont"],
@@ -60,13 +60,13 @@ namespace Pathfinding.Graphics
                 Color.White);
         }
 
-        public void DrawNode(SpriteBatch spriteBatch, TileNode node)
+        public void DrawNode(SpriteBatch spriteBatch, INode node)
         {
             this._tileTexture.SetData(_black);
 
             spriteBatch.Draw(
                 this._tileTexture,
-                new Vector2((int)node.Tile.Position.X * Tile.TileSize, (int)node.Tile.Position.Y * Tile.TileSize),
+                new Vector2((int)node.Position.X * Tile.TileSize, (int)node.Position.Y * Tile.TileSize),
                 Color.White);
         }
     }

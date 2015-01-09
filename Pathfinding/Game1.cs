@@ -17,8 +17,8 @@ namespace Pathfinding
         private SpriteBatch spriteBatch;
         private GameManager gameManager;
 
-        public int TileWidth = 16;
-        public int TileHeight = 16;
+        public int TileWidth = 30;
+        public int TileHeight = 20;
         public AssetsManager assetsManager;
 
         public Game1() : base()

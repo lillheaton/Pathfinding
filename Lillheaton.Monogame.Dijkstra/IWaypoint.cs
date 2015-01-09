@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-namespace Lillheaton.Monogame.Pathfinding
+namespace Lillheaton.Monogame.Dijkstra
 {
     public interface IWaypoint
     {

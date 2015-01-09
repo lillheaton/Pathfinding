@@ -90,6 +90,10 @@
       <Project>{1580561d-d757-44e5-b834-114a2f806010}</Project>
       <Name>Lillheaton.Monogame.AStar</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Lillheaton.Monogame.Dijkstra\Lillheaton.Monogame.Dijkstra.csproj">
+      <Project>{04ff3f83-7278-47af-b449-fc77a5cdea90}</Project>
+      <Name>Lillheaton.Monogame.Dijkstra</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

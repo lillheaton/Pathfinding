@@ -13,7 +13,7 @@ namespace Pathfinding
         public int Width { get; private set; }
         public int Height { get; private set; }
         public Tile[][] Tiles { get; private set; }
-        public Obstacle[] Obstacles { get; private set; }
+        public List<Obstacle> Obstacles { get; private set; }
         public List<Waypoint> Waypoints { get; private set; }
 
         public World(GraphicsDevice graphicsDevice, int width, int height)
@@ -27,7 +27,7 @@ namespace Pathfinding
         private void Init(GraphicsDevice graphicsDevice)
         {
             this.GenerateWorld();
-            Obstacles = this.GenerateObstacles().ToArray();
+            Obstacles = this.GenerateObstacles().ToList();
             Waypoints = new List<Waypoint>();
 
             this.CalculateWaypoints();
@@ -118,7 +118,35 @@ namespace Pathfinding
             }
         }
 
-        public static void CalculateRelatedWaypoints(Waypoint calculatingWaypoint, List<Waypoint> allWaypoints, Obstacle[] obstacles)
+        public Tile TileAt(Vector2 position)
+        {
+            for (int i = 0; i < Width; i++)
+            {
+                for (int j = 0; j < Height; j++)
+                {
+                    if (Tiles[i][j].Rectangle.Contains(position))
+                    {
+                        return Tiles[i][j];
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public bool TryAddObstacle(Vector2 position)
+        {
+            var tile = this.TileAt(position);
+            if (tile != null)
+            {
+                tile.IsWalkable = false;
+                Obstacles.Add(new Obstacle(tile.Position * Tile.TileSize));
+                return true;
+            }
+            return false;
+        }
+
+        public static void CalculateRelatedWaypoints(Waypoint calculatingWaypoint, List<Waypoint> allWaypoints, List<Obstacle> obstacles)
         {
             // Loop through all again to see if any waypoint is visible to each other
             foreach (var nestedWaypoint in allWaypoints.Where(s => s != calculatingWaypoint))

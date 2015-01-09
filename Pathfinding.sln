@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfinding", "Pathfinding\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lillheaton.Monogame.AStar", "Lillheaton.Monogame.AStar\Lillheaton.Monogame.AStar.csproj", "{1580561D-D757-44E5-B834-114A2F806010}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lillheaton.Monogame.Dijkstra", "Lillheaton.Monogame.Dijkstra\Lillheaton.Monogame.Dijkstra.csproj", "{04FF3F83-7278-47AF-B449-FC77A5CDEA90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,16 @@ Global
 		{1580561D-D757-44E5-B834-114A2F806010}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{1580561D-D757-44E5-B834-114A2F806010}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{1580561D-D757-44E5-B834-114A2F806010}.Release|x86.ActiveCfg = Release|Any CPU
+		{04FF3F83-7278-47AF-B449-FC77A5CDEA90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04FF3F83-7278-47AF-B449-FC77A5CDEA90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04FF3F83-7278-47AF-B449-FC77A5CDEA90}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{04FF3F83-7278-47AF-B449-FC77A5CDEA90}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{04FF3F83-7278-47AF-B449-FC77A5CDEA90}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{04FF3F83-7278-47AF-B449-FC77A5CDEA90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04FF3F83-7278-47AF-B449-FC77A5CDEA90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04FF3F83-7278-47AF-B449-FC77A5CDEA90}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{04FF3F83-7278-47AF-B449-FC77A5CDEA90}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{04FF3F83-7278-47AF-B449-FC77A5CDEA90}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
