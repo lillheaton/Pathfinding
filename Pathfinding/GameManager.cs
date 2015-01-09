@@ -27,7 +27,7 @@ namespace Pathfinding
 
         private void Init()
         {
-            _world = new World(_game.GraphicsDevice, 16, 16);
+            _world = new World(_game.GraphicsDevice, _game.TileWidth, _game.TileHeight);
             _graphicsHelper = new BasicGraphicsHelper(_game);
             _unit = new Unit(new Vector3(50, 50, 0), _world);
             _primitiveBatch = new PrimitiveBatch(_game.GraphicsDevice);
@@ -39,8 +39,6 @@ namespace Pathfinding
             {
                 _unit.MoveToPosition(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
             }
-
-            Console.WriteLine(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
         }
 
         public void Update(GameTime gameTime)

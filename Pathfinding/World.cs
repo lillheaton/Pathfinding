@@ -8,18 +8,18 @@ namespace Pathfinding
 {
     public class World
     {
-        private int _width;
-        private int _height;
         private Texture2D _wallTexture;
 
+        public int Width { get; private set; }
+        public int Height { get; private set; }
         public Tile[][] Tiles { get; private set; }
         public Obstacle[] Obstacles { get; private set; }
         public List<Waypoint> Waypoints { get; private set; }
 
         public World(GraphicsDevice graphicsDevice, int width, int height)
         {
-            _width = width;
-            _height = height;
+            this.Width = width;
+            this.Height = height;
 
             this.Init(graphicsDevice);
         }
@@ -43,11 +43,11 @@ namespace Pathfinding
 
         private void GenerateWorld()
         {
-            Tiles = new Tile[_width][];
-            for (int i = 0; i < _width; i++)
+            Tiles = new Tile[this.Width][];
+            for (int i = 0; i < this.Width; i++)
             {
-                Tiles[i] = new Tile[_height];
-                for (int j = 0; j < _height; j++)
+                Tiles[i] = new Tile[this.Height];
+                for (int j = 0; j < this.Height; j++)
                 {
                     Tiles[i][j] = new Tile(new Vector2(i, j));
                     Tiles[i][j].IsWalkable = true;
@@ -61,9 +61,9 @@ namespace Pathfinding
             // http://www.redblobgames.com/pathfinding/a-star/implementation.html
             // http://simblob.blogspot.se/2014/02/pathfinding-for-tower-defense-games.html
 
-            for (int i = 0; i < _width; i++)
+            for (int i = 0; i < this.Width; i++)
             {
-                for (int j = 0; j < _height; j++)
+                for (int j = 0; j < this.Height; j++)
                 {
                     if (Tiles[i][j].IsWalkable)
                     {

@@ -16,11 +16,19 @@ namespace Pathfinding
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private GameManager gameManager;
+
+        public int TileWidth = 16;
+        public int TileHeight = 16;
         public AssetsManager assetsManager;
 
         public Game1() : base()
         {
             graphics = new GraphicsDeviceManager(this);
+            // Set window size
+            graphics.PreferredBackBufferWidth = TileWidth * Tile.TileSize;
+            graphics.PreferredBackBufferHeight = TileHeight * Tile.TileSize;
+            graphics.ApplyChanges();
+
             Content.RootDirectory = "Content";
         }
 
