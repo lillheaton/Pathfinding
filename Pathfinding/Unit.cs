@@ -38,7 +38,7 @@ namespace Pathfinding
             if (_path != null)
             {
                 SteeringBehavior.FollowPath(_path);
-                //SteeringBehavior.CollisionAvoidance(Obstacles);
+                //SteeringBehavior.CollisionAvoidance(Obstacles);git
                 //SteeringBehavior.Queue(WorldBoids);
 
                 // Calculate Steering
