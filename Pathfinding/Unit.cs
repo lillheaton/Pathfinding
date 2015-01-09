@@ -21,6 +21,14 @@ namespace Pathfinding
 
         public void MoveToPosition(Vector2 toPosition)
         {
+            // First we check if we even need to calculate a path
+            if (PathHelper.ClearViewFrom(new Vector2(this.Position.X, this.Position.Y), toPosition, this.Obstacles.Cast<Obstacle>().ToArray()))
+            {
+                _path = new Path();
+                _path.AddNode(new Vector3(toPosition, 0));
+                return;
+            }
+
             var path = PathHelper.CalculatePath(_world, this.Obstacles.Cast<Obstacle>().ToArray(), new Vector2(this.Position.X, this.Position.Y), toPosition);
             _path = new Path(path.Select(s => new Vector3(s.X, s.Y, 0) * Tile.TileSize + new Vector3(Tile.CenterVector, 0)).ToList());
         }

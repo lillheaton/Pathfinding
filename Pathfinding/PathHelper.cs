@@ -44,12 +44,6 @@ namespace Pathfinding
 
         public static Vector2[] CalculatePath(World world, Obstacle[] obstacles, Vector2 currentPosition, Vector2 goal)
         {
-            // First we check if we even need to calculate a path
-            if (ClearViewFrom(currentPosition, goal, obstacles))
-            {
-                return new Vector2[] { goal };
-            }
-
             var xLength = world.Tiles.Length;
             var yLength = world.Tiles[0].Length;
             Tile currentTile = null;
@@ -69,6 +63,7 @@ namespace Pathfinding
                     }
                 }
             }
+
             // Create start position and goal as waypoints
             var startWaypoint = new Waypoint { Position = currentTile.Position };
             var endWaypoint = new Waypoint { Position = goalTile.Position };

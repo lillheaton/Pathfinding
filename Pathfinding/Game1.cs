@@ -29,6 +29,9 @@ namespace Pathfinding
             graphics.PreferredBackBufferHeight = TileHeight * Tile.TileSize;
             graphics.ApplyChanges();
 
+            // Display mouse
+            this.IsMouseVisible = true;
+
             Content.RootDirectory = "Content";
         }
 
