@@ -46,6 +46,11 @@ namespace Lillheaton.Monogame.Dijkstra
                 }
 
                 searched.Add(current);
+
+                if (current.Waypoint == end)
+                {
+                    break;
+                }
             }
 
             var endNode = searched.FirstOrDefault(s => s.Waypoint == end);

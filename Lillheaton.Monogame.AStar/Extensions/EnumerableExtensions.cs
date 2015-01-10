@@ -10,8 +10,8 @@ namespace Lillheaton.Monogame.Pathfinding.Extensions
             var xLength = twoDimensionalArray.Length;
             var yLength = twoDimensionalArray[0].Length;
 
-            if (position.X > 0 && position.X < xLength && 
-                position.Y > 0 && position.Y < yLength)
+            if (position.X > -1 && position.X < xLength && 
+                position.Y > -1 && position.Y < yLength)
             {
                 return twoDimensionalArray[(int)position.X][(int)position.Y];
             }

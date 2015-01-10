@@ -3,7 +3,6 @@ using Lillheaton.Monogame.Steering.Behaviours;
 using Lillheaton.Monogame.Steering.Extensions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 
 namespace Pathfinding
 {
@@ -12,8 +11,6 @@ namespace Pathfinding
         public SteeringBehavior SteeringBehavior { get; private set; }
         public Vector3 Position { get; set; }
         public Vector3 Velocity { get; set; }
-        public IObstacle[] Obstacles { get; set; }
-        public List<IBoid> WorldBoids { get; set; }
 
         private VertexPositionColor[] _forces;
 
@@ -26,7 +23,6 @@ namespace Pathfinding
         private void Init()
         {
             SteeringBehavior = new SteeringBehavior(this);
-            Obstacles = new IObstacle[0];
 
             Velocity = new Vector3(-1, -2, 0);
             Velocity = Velocity.Truncate(this.GetMaxVelocity());

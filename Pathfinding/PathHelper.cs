@@ -68,9 +68,6 @@ namespace Pathfinding
             // Calculate path and return solution
             var solution = Dijkstra.CalculatePath(waypointsCopy.OfType<IWaypoint>().ToList(), startWaypoint, endWaypoint).Reverse().ToArray();
 
-            //List<WaypointNode> visitedNodes;
-            //var solution = Astar.CalculatePath(waypointsCopy.ToArray(), startWaypoint, endWaypoint, out visitedNodes).Reverse().ToArray();
-
             // Need to do some cleanup
             foreach (var relatedWaypoint in endWaypoint.RelatedPoints)
             {
@@ -86,7 +83,7 @@ namespace Pathfinding
             bool clearView = true;
             foreach (var obstacle in obstacles)
             {
-                if(LiangBarsky.Collides(pointA, pointB, obstacle.Rectangle))
+                if(LineClipping.LineIntersectsRect(pointA, pointB, obstacle.Rectangle))
                 {
                     clearView = false;
                 }

@@ -24,7 +24,6 @@ namespace Pathfinding
         public Unit(Vector3 startPosition, World world) : base(startPosition)
         {
             this._world = world;
-            this.Obstacles = world.Obstacles.ToArray();
             this._triangle = new Triangle();
         }
 
@@ -34,7 +33,7 @@ namespace Pathfinding
             this.SteeringBehavior.ResetPath();
 
             // First we check if we even need to calculate a path
-            if (PathHelper.ClearViewFrom(new Vector2(this.Position.X, this.Position.Y), toPosition, this.Obstacles.Cast<Obstacle>().ToList()))
+            if (PathHelper.ClearViewFrom(new Vector2(this.Position.X, this.Position.Y), toPosition, this._world.Obstacles))
             {
                 _path = new Path();
                 _path.AddNode(new Vector3(toPosition, 0));

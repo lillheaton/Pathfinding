@@ -49,7 +49,18 @@ namespace Pathfinding
                 }
             }
 
-            
+            if (Mouse.GetState().RightButton == ButtonState.Pressed)
+            {
+                if (!this._mousePressed)
+                {
+                    _world.TryAddObstacle(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+                    _mousePressed = true;
+                }
+                else
+                {
+                    _mousePressed = false;
+                }
+            }
         }
 
         public void Update(GameTime gameTime)

@@ -1,4 +1,6 @@
-﻿using Lillheaton.Monogame.Pathfinding.Extensions;
+﻿using System;
+
+using Lillheaton.Monogame.Pathfinding.Extensions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -28,7 +30,6 @@ namespace Pathfinding
         {
             this.GenerateWorld();
             Obstacles = this.GenerateObstacles().ToList();
-            Waypoints = new List<Waypoint>();
 
             this.CalculateWaypoints();
 
@@ -57,9 +58,7 @@ namespace Pathfinding
 
         private void CalculateWaypoints()
         {
-            // http://www.redblobgames.com/pathfinding/grids/algorithms.html
-            // http://www.redblobgames.com/pathfinding/a-star/implementation.html
-            // http://simblob.blogspot.se/2014/02/pathfinding-for-tower-defense-games.html
+            Waypoints = new List<Waypoint>();
 
             for (int i = 0; i < this.Width; i++)
             {
@@ -141,6 +140,7 @@ namespace Pathfinding
             {
                 tile.IsWalkable = false;
                 Obstacles.Add(new Obstacle(tile.Position * Tile.TileSize));
+                this.CalculateWaypoints();
                 return true;
             }
             return false;
