@@ -109,7 +109,10 @@
   <PropertyGroup>
     <PreBuildEvent>if $(ConfigurationName) == Laptop (
 copy "$(SolutionDir)..\CSharp_Steering_Behavior\Lillheaton.Monogame.Steering\bin\Debug\Lillheaton.Monogame.Steering.dll" "$(SolutionDir)/libs"
-)</PreBuildEvent>
+)
+
+if not exist $(TargetDir)Content\Fonts mkdir $(TargetDir)Content\Fonts
+copy "$(ProjectDir)Content\Fonts\MyFont.xnb" "$(TargetDir)Content\Fonts"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
