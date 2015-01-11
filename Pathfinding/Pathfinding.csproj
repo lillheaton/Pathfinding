@@ -38,6 +38,15 @@
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Laptop|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Laptop\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="AssetsManager.cs" />
     <Compile Include="BaseUnit.cs" />
@@ -98,7 +107,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>copy "$(SolutionDir)..\CSharp_Steering_Behavior\Lillheaton.Monogame.Steering\bin\Debug\Lillheaton.Monogame.Steering.dll" "$(SolutionDir)/libs"</PreBuildEvent>
+    <PreBuildEvent>if $(ConfigurationName) == Laptop (
+copy "$(SolutionDir)..\CSharp_Steering_Behavior\Lillheaton.Monogame.Steering\bin\Debug\Lillheaton.Monogame.Steering.dll" "$(SolutionDir)/libs"
+)</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
